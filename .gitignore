@@ -1,0 +1,28 @@
+# Ignore the large data and artifact files — don't push them to GitHub
+data/
+artifacts/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Output files (you may want to commit submission.csv selectively)
+submission.csv
+submission.xlsx

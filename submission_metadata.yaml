@@ -1,0 +1,92 @@
+# Submission Metadata — Redrob Hackathon
+# Copy this file to your repo root as submission_metadata.yaml
+
+# ---------------------------------------------------------------------------
+# Team Identity
+# ---------------------------------------------------------------------------
+team_name: "your-team-name"
+
+primary_contact:
+  name: "Your Name"
+  email: "your@email.com"
+  phone: "+91-XXXXXXXXXX"
+
+team_members:
+  - name: "Your Name"
+    email: "your@email.com"
+    role: "Engineer"
+
+# ---------------------------------------------------------------------------
+# Code and Reproducibility
+# ---------------------------------------------------------------------------
+github_repo: "https://github.com/YOUR_USERNAME/redrob-ranker"
+
+sandbox_link: "https://huggingface.co/spaces/YOUR_USERNAME/redrob-ranker"
+
+reproduce_command: "python rank.py --candidates ./data/candidates.jsonl --out ./submission.csv"
+
+# ---------------------------------------------------------------------------
+# Compute Environment
+# ---------------------------------------------------------------------------
+compute_environment:
+  platform: "Windows 11 / Linux"
+  cpu_cores: 8
+  ram_gb: 16
+  python_version: "3.12"
+  os: "Windows 11"
+  uses_gpu_for_inference: false       # MUST be false per competition rules
+  has_network_during_ranking: false   # MUST be false per competition rules
+  pre_computation_required: true
+  pre_computation_command: "python precompute.py --candidates ./data/candidates.jsonl"
+  pre_computation_time_minutes: 8     # Approximate — offline step, not counted in 5 min
+
+# ---------------------------------------------------------------------------
+# AI Tools Declaration (transparency only — not penalised)
+# ---------------------------------------------------------------------------
+ai_tools_used:
+  - "Gemini"
+
+ai_usage_summary: >
+  AI assistant used for code scaffolding and review. All algorithmic design,
+  feature engineering logic, weighting decisions, and honeypot detection
+  were designed and validated by the team.
+
+# ---------------------------------------------------------------------------
+# Approach Summary (≤200 words, strongly recommended)
+# ---------------------------------------------------------------------------
+methodology_summary: >
+  Two-phase pipeline: (1) offline pre-computation using MiniLM-L6-v2
+  sentence-transformers to embed all 100K candidate profiles and compute
+  cosine similarity against the JD text; (2) fast CPU ranking that combines
+  the semantic score with four structured feature categories.
+
+  Semantic score (35%): MiniLM cosine similarity captures candidates who
+  describe building retrieval/ranking/recommendation systems without using
+  exact JD keywords — catching the "plain-language Tier-5" trap.
+
+  Career quality (25%): rewards product-company experience, penalises
+  consulting-only careers (TCS/Infosys/Wipro entire career), stable tenures,
+  and descriptions containing production deployment language.
+
+  Behavioural score (20%): incorporates all 23 Redrob platform signals —
+  recency of last login, recruiter response rate, interview completion,
+  offer acceptance, and active job-seeking behaviour.
+
+  Experience fit (15%): years-of-experience band check (5–9 ideal), GitHub
+  activity score, and AI/ML title history ratio.
+
+  Logistics (5%): location preference (Pune/Noida/NCR), notice period,
+  salary range alignment, and work-mode fit (hybrid preferred).
+
+  Honeypot detection: 6 independent checks eliminate impossible profiles
+  before scoring (score forced to 0.0).
+
+# ---------------------------------------------------------------------------
+# Declarations
+# ---------------------------------------------------------------------------
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true
